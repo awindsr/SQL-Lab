@@ -1,0 +1,39 @@
+CREATE TABLE Employee (
+    Emp_id INT PRIMARY KEY,
+    Emp_name VARCHAR(50),
+    Dept VARCHAR(50),
+    Salary DECIMAL(10, 2)
+);
+
+Insert Into Employee Values(001,'Awin','HR', 8200.00);
+Insert Into Employee Values(002,'David Smith','Marketing', 5200.00);
+Insert Into Employee Values(003,'Doe','Production', 7200.00);
+Insert Into Employee Values(004,'Jane','HR', 4200.00);
+insert into employee values(005,'Alex','Marketing', 2200.00);
+
+select * from employee;
+
+Select * From Employee Where Salary>7000;
+select * from employee;
+Update Employee Set Salary=8200.00 Where Emp_Name='David Smith';
+select * from employee;
+Insert Into Employee Values(6, 'Daniel Harris', 'Production',6700.00);
+select * from employee;
+Delete From Employee Where Emp_Id=3;
+select * from employee;
+Select * From Employee Where Emp_Name Not Like 'D%' And Emp_Name Not Like 'O%';
+Select Dept, Sum(Salary) As Total_Salary_Expense From Employee Group By Dept;
+select * from employee;
+Update Employee Set Salary=Salary*1.05 Where Dept='Production';
+select * from employee;
+Delete From Employee Where Salary<7000;
+select * from employee;
+Select Emp_Name Salary From Employee Where Salary In (Select Min(Salary) From Employee);
+select * from employee;
+Update Employee Set Salary=8200.00 Where Dept='Marketing';
+select * from employee;
+Select Emp_Name From Employee Where Emp_Name Like 'A%';
+Select Emp_Name From Employee Where Emp_Name Like '%it%';
+Select Distinct Upper(Dept) As Dept From Employee;
+Select * From Employee Where Dept Like 'M_r%' And Dept Like '%ket%';
+select distinct upper(reverse(dept)) as dept from employee;
