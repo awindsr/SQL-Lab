@@ -2,7 +2,7 @@
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY,
     CustomerName VARCHAR(100),
-    ContactName INT,
+    ContactNumber INT,
     Address VARCHAR(255),
     City VARCHAR(100),
     PostalCode VARCHAR(20),
@@ -28,19 +28,19 @@ CREATE TABLE Orders (
 );
 
 -- Insert data into Customer table
-INSERT INTO Customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
 VALUES (1, 'Michael', 6789012345, '123 Pine St', 'Springfield', '62701', 'USA');
 
-INSERT INTO Customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
 VALUES (2, 'Linda', 7890123456, '456 Cedar St', 'Springfield', '62701', 'USA');
 
-INSERT INTO Customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
 VALUES (3, 'James', 8901234567, '789 Maple St', 'Springfield', '62701', 'USA');
 
-INSERT INTO Customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
 VALUES (4, 'Liam', 4567890123, '456 Cedar St', 'Springfield', '62701', 'USA');
 
-INSERT INTO Customer (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
 VALUES (5, 'Emma', 5678901234, '707 Birch St', 'Paris', '75001', 'France');
 
 -- Insert data into Employees table
