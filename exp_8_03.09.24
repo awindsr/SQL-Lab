@@ -1,20 +1,19 @@
--- Create tables
 CREATE TABLE Customer (
     CustomerID INT PRIMARY KEY,
-    CustomerName VARCHAR(100),
-    ContactNumber INT,
-    Address VARCHAR(255),
-    City VARCHAR(100),
-    PostalCode VARCHAR(20),
-    Country VARCHAR(50)
+    Customername Varchar(30),
+    ContactNumber Int,
+    Address VARCHAR(50),
+    City VARCHAR(20),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(20)
 );
 
 CREATE TABLE Employees (
     EmployeeID INT PRIMARY KEY,
-    LastName VARCHAR(100),
-    FirstName VARCHAR(100),
-    BirthDate DATE,
-    Photo BLOB
+    LastName VARCHAR(20),
+    FirstName VARCHAR(20),
+    Birthdate Date,
+    photo BLOB
 );
 
 CREATE TABLE Orders (
@@ -80,13 +79,13 @@ SELECT *
 FROM Customer 
 ORDER BY CustomerName ASC;
 
-CUSTOMERID CUSTOMERNAME                                                                                         CONTACTNAME ADDRESS                                                                                                                                                                                                                                                         CITY                                                                                                 POSTALCODE           COUNTRY                                          
----------- ---------------------------------------------------------------------------------------------------- ----------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- -------------------- --------------------------------------------------
-         5 Emma                                                                                                  5678901234 707 Birch St                                                                                                                                                                                                                                                    Paris                                                                                                75001                France                                             
-         3 James                                                                                                 8901234567 789 Maple St                                                                                                                                                                                                                                                    Springfield                                                                                          62701                USA                                                
-         4 Liam                                                                                                  4567890123 456 Cedar St                                                                                                                                                                                                                                                    Springfield                                                                                          62701                USA                                                
-         2 Linda                                                                                                 7890123456 456 Cedar St                                                                                                                                                                                                                                                    Springfield                                                                                          62701                USA                                                
-         1 Michael                                                                                               6789012345 123 Pine St                                                                                                                                                                                                                                                     Springfield                                                                                          62701                USA                                                
+CUSTOMERID CUSTOMERNAME                   CONTACTNUMBER ADDRESS                                            CITY                 POSTALCODE COUNTRY            
+---------- ------------------------------ ------------- -------------------------------------------------- -------------------- ---------- --------------------
+         5 Emma                              5678901234 707 Birch St                                       Paris                75001      France               
+         3 James                             8901234567 789 Maple St                                       Springfield          62701      USA                  
+         4 Liam                              4567890123 456 Cedar St                                       Springfield          62701      USA                  
+         2 Linda                             7890123456 456 Cedar St                                       Springfield          62701      USA                  
+         1 Michael                           6789012345 123 Pine St                                        Springfield          62701      USA                  
 
 -- Retrieve a list of orders with the oldest ones appearing first, sorted by order date in ascending order
 SELECT * 
@@ -107,11 +106,11 @@ FROM Employees
 WHERE BirthDate > TO_DATE('1980-01-01', 'YYYY-MM-DD') 
 ORDER BY BirthDate DESC;
 
-EMPLOYEEID LASTNAME                                                                                             FIRSTNAME                                                                                            BIRTHDATE PHOTO                                                                          
----------- ---------------------------------------------------------------------------------------------------- ---------------------------------------------------------------------------------------------------- --------- --------------------------------------------------------------------------------
-         3 Johnson                                                                                              Robert                                                                                               30-07-90                                                                                   
-         4 Brown                                                                                                Emily                                                                                                10-12-85                                                                                   
-         1 Doe                                                                                                  John                                                                                                 15-01-80                                                                                   
+ EMPLOYEEID LASTNAME             FIRSTNAME            BIRTHDATE PHOTO                                                                          
+---------- -------------------- -------------------- --------- ----------------
+         3 Johnson              Robert               30-07-90                                                                                   
+         4 Brown                Emily                10-12-85                                                                                   
+         1 Doe                  John                 15-01-80                                                                                                                                                         
 
 -- List orders placed by customers from 'USA' in descending order of the order date
 SELECT o.* 
@@ -135,13 +134,13 @@ LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
 GROUP BY c.CustomerID, c.CustomerName
 ORDER BY TotalOrders DESC;
 
-CUSTOMERID CUSTOMERNAME                                                                                         TOTALORDERS
----------- ---------------------------------------------------------------------------------------------------- -----------
-         1 Michael                                                                                                        3 
-         3 James                                                                                                          1 
-         4 Liam                                                                                                           1 
-         5 Emma                                                                                                           0 
-         2 Linda                                                                                                          0 
+CUSTOMERID CUSTOMERNAME                   TOTALORDERS
+---------- ------------------------------ -----------
+         1 Michael                                  3 
+         3 James                                    1 
+         4 Liam                                     1 
+         5 Emma                                     0 
+         2 Linda                                    0 
 
 -- List the cities with the total number of customers
 SELECT City, COUNT(CustomerID) AS TotalCustomers
@@ -149,10 +148,11 @@ FROM Customer
 GROUP BY City
 ORDER BY TotalCustomers DESC;
 
-CITY                                                                                                 TOTALCUSTOMERS
----------------------------------------------------------------------------------------------------- --------------
-Springfield                                                                                                       4 
-Paris                                                                                                             1 
+CITY                 TOTALCUSTOMERS
+-------------------- --------------
+Springfield                       4 
+Paris                             1 
+
 
 -- List customers who have placed more than 2 orders
 SELECT c.CustomerID, c.CustomerName, COUNT(o.OrderID) AS TotalOrders
@@ -162,9 +162,10 @@ GROUP BY c.CustomerID, c.CustomerName
 HAVING COUNT(o.OrderID) > 2
 ORDER BY TotalOrders DESC;
 
-CUSTOMERID CUSTOMERNAME                                                                                         TOTALORDERS
----------- ---------------------------------------------------------------------------------------------------- -----------
-         1 Michael                                                                                                        3 
+CUSTOMERID CUSTOMERNAME                   TOTALORDERS
+---------- ------------------------------ -----------
+         1 Michael                                  3 
+
 
 -- Display cities with more than 3 customers
 SELECT City, COUNT(CustomerID) AS TotalCustomers
@@ -173,6 +174,6 @@ GROUP BY City
 HAVING COUNT(CustomerID) > 3
 ORDER By TotalCustomers Desc;
 
-CITY                                                                                                 TOTALCUSTOMERS
----------------------------------------------------------------------------------------------------- --------------
-Springfield                                                                                                       4 
+CITY                 TOTALCUSTOMERS
+-------------------- --------------
+Springfield                       4 
