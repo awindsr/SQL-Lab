@@ -1,4 +1,5 @@
 
+
 create table items_18(
   itemID int primary key,
   itemname varchar(50),
@@ -7,8 +8,6 @@ create table items_18(
   instock int check(instock>=0)
 );
 
-table ITEMS_18 created.
-
 
 create table customers_18 (
   custid int primary key,
@@ -16,8 +15,6 @@ create table customers_18 (
   address varchar(255),
   state varchar(50)
 );
-
-table CUSTOMERS_18 created.
 
 
 create table orders_18(
@@ -30,9 +27,6 @@ create table orders_18(
   foreign key(custID) references customers_18(custId)
 );
 
-table ORDERS_18 created.
-
-
 CREATE TABLE delivery_18 (
   id INT PRIMARY KEY, 
   deliveryId INT NULL,                
@@ -42,7 +36,6 @@ CREATE TABLE delivery_18 (
   FOREIGN KEY (orderId) REFERENCES orders_18(orderId)
 );
 
-table DELIVERY_18 created.
 
 INSERT INTO items_18 VALUES (1, 'Samsung Galaxy S4', 'Electronics', 599.99, 100);
 insert into items_18 values(2, 'Laptop Pro', 'Electronics', 1299.99, 50);
@@ -50,12 +43,7 @@ insert into items_18 values(3, 'Running Shoes', 'Sports', 89.99, 200);
 insert into items_18 values(4, 'Macbook', 'Electronics', 5400.00, 150);
 insert into items_18 values(5, 'Mystery Novel', 'Books', 14.99, 300);
 
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
+
 
 INSERT INTO customers_18 VALUES (1, 'John Doe', '123 Main St, Anytown', 'California');
 INSERT INTO customers_18 VALUES(2, 'Jane Smith', '456 Oak Ave, Somewhere', 'New York');
@@ -63,25 +51,11 @@ INSERT INTO customers_18 VALUES(3, 'Bob Johnson', '789 Pine Rd, Nowhere', 'Texas
 INSERT INTO customers_18 VALUES(4, 'Alice Brown', '321 Elm St, Everywhere', 'Florida');
 INSERT INTO customers_18 VALUES(5, 'Mickey', '654 Maple Dr, Anywhere', 'Washington');
 
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-
 INSERT INTO orders_18 VALUES (1, 1, 1, 1, to_date('2013-01-15', 'yyyy-mm-dd'));
 INSERT INTO orders_18 VALUES (2, 2, 2, 1, to_date('2013-02-20', 'yyyy-mm-dd'));
 INSERT INTO orders_18 VALUES (3, 3, 3, 2, to_date('2012-06-20', 'yyyy-mm-dd'));
 INSERT INTO orders_18 VALUES (4, 4, 4, 1, to_date('2013-04-30', 'yyyy-mm-dd'));
 INSERT INTO orders_18 VALUES (5, 5, 5, 3, to_date('2013-05-05', 'yyyy-mm-dd'));
-
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
 
 INSERT INTO delivery_18
 VALUES (1, 1, 1, 1);
@@ -91,13 +65,6 @@ INSERT INTO delivery_18
 VALUES (3, NULL, 3, 3);
 INSERT INTO delivery_18 
 VALUES (4, 4, 4, 4);
-
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-1 rows inserted.
-
 
 
 
@@ -133,6 +100,10 @@ JOIN orders_18 o ON c.custid = o.custId
 LEFT JOIN delivery_18 d ON o.orderId = d.orderId
 WHERE o.orderdate > TO_DATE('2013-01-31', 'YYYY-MM-DD')
   AND d.deliveryId IS NULL;
+  
+  
+--6 Find the itemid of items which has either been ordered or not delivered. (UseSET UNION)
+select itemid from orders_18 UNION select itemid from items_18 where itemId NOT IN (select itemId from orders_18 where orderid IN (select orderId from Delivery_18));
   
 
 -- 7. Find the name of all customers who have placed an order and have their orders delivered. (Use SET INTERSECTION)
@@ -208,7 +179,29 @@ HAVING AVG(price) > (SELECT AVG(price) FROM items_18);
 
 
 
-
+table ITEMS_18 created.
+table CUSTOMERS_18 created.
+table ORDERS_18 created.
+table DELIVERY_18 created.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
     CUSTID CUSTNAME                                                                                             ADDRESS                                                                                                                                                                                                                                                         STATE                                            
 ---------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------
          4 Alice Brown                                                                                          321 Elm St, Everywhere                                                                                                                                                                                                                                          Florida                                            
@@ -236,6 +229,14 @@ Mystery Novel                                           14.99
     CUSTID CUSTNAME                                                                                             ADDRESS                                                                                                                                                                                                                                                         STATE                                            
 ---------- ---------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------
          5 Mickey                                                                                               654 Maple Dr, Anywhere                                                                                                                                                                                                                                          Washington                                         
+
+    ITEMID
+----------
+         1 
+         2 
+         3 
+         4 
+         5 
 
 CUSTNAME                                                                                           
 ----------------------------------------------------------------------------------------------------
