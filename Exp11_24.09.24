@@ -59,6 +59,3 @@ ORA-00942: table or view does not exist
 *Cause:    
 *Action:
 Error at Line: 4 Column: 24
-
-
-Here is the query and output of sql. Here im granting permission to c22csa32 to select and their select * is displayed. I want you to grant update permission to the user and display the update command and its result as well.
