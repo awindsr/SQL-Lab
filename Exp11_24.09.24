@@ -35,7 +35,23 @@ SELECT * FROM c22csa18.bank;
          5 Bank C     New York   Branch 1   BC01                 
 
 
-revoke select on bank from c22csa32;
+GRANT UPDATE ON bank TO c22csa32;
+UPDATE c22csa32.bank
+SET bankname = 'Updated Bank A'
+WHERE bankID = 1;
+SELECT * FROM c22csa32.bank;
+
+     BANKID BANKNAME        HEADOFFICE BRANCH     BRANCHCODE         
+---------- ----------       ---------- ---------- --------------------
+         1 Updated Bank A  New York   Branch 1   BA01                 
+         2 Bank A          New York   Branch 2   BA02                 
+         3 Bank B          Boston     Branch 1   BB01                 
+         4 Bank A          Ohio       Branch 3   BA03                 
+         5 Bank C          New York   Branch 1   BC01                 
+
+
+
+revoke select,update on bank from c22csa32;
 revoke succeeded.
 SELECT * FROM c22csa18.bank;
 ORA-00942: table or view does not exist
@@ -44,3 +60,5 @@ ORA-00942: table or view does not exist
 *Action:
 Error at Line: 4 Column: 24
 
+
+Here is the query and output of sql. Here im granting permission to c22csa32 to select and their select * is displayed. I want you to grant update permission to the user and display the update command and its result as well.
