@@ -1,4 +1,18 @@
 --experiment 11 implement DCL commands
+CREATE TABLE bank (
+    bankID NUMBER(20) PRIMARY KEY,
+    bankname VARCHAR(10),
+    headoffice VARCHAR(10),
+    branch VARCHAR(10),
+    branchcode VARCHAR(20)
+);
+
+INSERT INTO bank  VALUES (001,'Bank A', 'New York', 'Branch 1', 'BA01');
+INSERT INTO bank  VALUES (002 ,'Bank A', 'New York', 'Branch 2', 'BA02');
+INSERT INTO bank  VALUES (003 ,'Bank B', 'Boston', 'Branch 1', 'BB01');
+INSERT INTO bank  VALUES (004 ,'Bank A', 'Ohio', 'Branch 3',  'BA03');
+INSERT INTO bank  VALUES (005 ,'Bank C', 'New York', 'Branch 1',  'BC01');
+
 select * from bank;
 
     BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
@@ -13,6 +27,8 @@ select * from bank;
 grant select on bank to c22csa32;
 grant succeeded.
 
-revoke select on bank from c22csa32;
 
+revoke select on bank from c22csa32;
 revoke succeeded.
+
+
