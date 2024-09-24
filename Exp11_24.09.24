@@ -36,10 +36,10 @@ SELECT * FROM c22csa18.bank;
 
 
 GRANT UPDATE ON bank TO c22csa32;
-UPDATE c22csa32.bank
+UPDATE c22csa18.bank
 SET bankname = 'Updated Bank A'
 WHERE bankID = 1;
-SELECT * FROM c22csa32.bank;
+SELECT * FROM c22csa18.bank;
 
      BANKID BANKNAME        HEADOFFICE BRANCH     BRANCHCODE         
 ---------- ----------       ---------- ---------- --------------------
