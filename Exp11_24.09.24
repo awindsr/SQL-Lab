@@ -1,0 +1,18 @@
+--experiment 11 implement DCL commands
+select * from bank;
+
+    BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         1 Bank A     New York   Branch 1   BA01                 
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+
+grant select on bank to c22csa32;
+grant succeeded.
+
+revoke select on bank from c22csa32;
+
+revoke succeeded.
