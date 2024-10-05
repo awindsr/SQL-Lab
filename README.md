@@ -11,7 +11,7 @@ Welcome to the Database Management Systems Lab repository! This repository conta
 
 ## Overview
 
-This repository includes a comprehensive set of experiments that cover fundamental database concepts, SQL commands, and practical implementations within a Library Management System context. Each experiment is designed to enhance understanding of database management and SQL.
+This repository includes a comprehensive set of experiments that cover fundamental database concepts, SQL commands, and practical implementations.
 
 ## Experiments
 
