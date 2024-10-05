@@ -32,8 +32,7 @@ Each experiment contains code snippets, explanations, and outcomes that illustra
 
 ## Technologies Used
 
-- **Database**: MySQL / PostgreSQL / SQLite (specify which you used)
+- **Database**: SQLite (specify which you used)
 - **Programming Language**: SQL
-- **Tools**: [Any additional tools or frameworks you used, e.g., MySQL Workbench, pgAdmin]
 
 
