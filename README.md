@@ -1,6 +1,6 @@
 # Database Management Systems Lab
 
-Welcome to the Database Management Systems Lab repository! This repository contains a series of experiments focused on designing and implementing a Library Management System using various SQL commands and database concepts.
+Welcome to the Database Management Systems Lab repository! This repository contains a series of experiments focused on designing and implementing a Databse Management System using various SQL commands and database concepts.
 
 ## Table of Contents
 
