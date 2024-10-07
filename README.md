@@ -27,6 +27,7 @@ This repository includes a comprehensive set of experiments that cover fundament
 10. **Experiment 10**: SQL Transaction Control Language (TCL) Commands
 11. **Experiment 11**: SQL Data Control Language (DCL) Commands
 12. **Experiment 12**: Creation of Views and Assertions
+13. **Experiment 13**: PL/SQL Commands
 
 Each experiment contains code snippets, explanations, and outcomes that illustrate the principles of database management systems.
 
