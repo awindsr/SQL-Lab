@@ -16,3 +16,17 @@ new   3: n number:=4;
 Factorial is 24
 
 PL/SQL procedure successfully completed.
+
+
+Enter value for a: 5
+old   2: a number:=&a;
+new   2: a number:=5;
+Enter value for b: 7
+old   3: b number:=&b;
+new   3: b number:=7;
+Enter value for c: 2
+old   4: c number:=&c;
+new   4: c number:=2;
+Greatest number is 7
+
+PL/SQL procedure successfully completed.
