@@ -1,0 +1,29 @@
+SQL> DECLARE
+  2    num1 NUMBER := &num1;
+  3    num2 NUMBER := &num2;
+  4    num3 NUMBER := &num3;
+  5    greatest NUMBER;
+  6  BEGIN
+  7    IF num1 >= num2 AND num1 >= num3 THEN
+  8        greatest := num1;
+  9    ELSIF num2 >= num1 AND num2 >= num3 THEN
+ 10        greatest := num2;
+ 11    ELSE
+ 12        greatest := num3;
+ 13    END IF;
+ 14  
+ 15    DBMS_OUTPUT.PUT_LINE('The greatest number is: ' || greatest);
+ 16  END;
+ 17  /
+Enter value for num1: 10
+old   2:    num1 NUMBER := &num1;
+new   2:    num1 NUMBER := 10;
+Enter value for num2: 20
+old   3:    num2 NUMBER := &num2;
+new   3:    num2 NUMBER := 20;
+Enter value for num3: 15
+old   4:    num3 NUMBER := &num3;
+new   4:    num3 NUMBER := 15;
+The greatest number is: 20
+
+PL/SQL procedure successfully completed.

@@ -1,0 +1,58 @@
+SQL>declare
+  2  num_terms NUMBER := &num_terms;
+  3  first_term NUMBER := 0;
+  4  second_term NUMBER := 1;
+  5  next_term NUMBER;
+  6  BEGIN
+  7  DBMS_OUTPUT.PUT_LINE('Fibonacci Series:');
+  8  IF num_terms < 1 THEN
+  9  DBMS_OUTPUT.PUT_LINE('Please enter a positive integer.');
+ 10  ELSIF num_terms = 1 THEN
+ 11  DBMS_OUTPUT.PUT_LINE(first_term);
+ 12  ELSE
+ 13  DBMS_OUTPUT.PUT_LINE(first_term);
+ 14  DBMS_OUTPUT.PUT_LINE(second_term);
+ 15  FOR i IN 3..num_terms LOOP
+ 16  next_term := first_term + second_term;
+ 17  DBMS_OUTPUT.PUT_LINE(next_term);
+ 18  first_term := second_term;
+ 19  second_term := next_term;
+ 20  END LOOP;
+ 21  END IF;
+ 22* END;
+SQL> /
+
+Enter value for num_terms: 28
+old   2: num_terms NUMBER := &num_terms;
+new   2: num_terms NUMBER := 28;
+Fibonacci Series:
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+89
+144
+233
+377
+610
+987
+1597
+2584
+4181
+6765
+10946
+17711
+28657
+46368
+75025
+121393
+196418
+
+PL/SQL procedure successfully completed.

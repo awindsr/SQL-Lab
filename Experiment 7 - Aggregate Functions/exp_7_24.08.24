@@ -1,0 +1,152 @@
+-- Query 1
+CREATE TABLE STUDENT_18_AWIN (
+    ROLL_NO INT PRIMARY KEY,
+    NAME VARCHAR(20),
+    Physics INT,
+    Chemistry INT,
+    Mathematics INT
+);
+-- Output
+Table STUDENT_18_AWIN created.
+
+-- Query 2
+INSERT INTO STUDENT_18_AWIN VALUES (1, 'Adam', 20, 20, 33);
+INSERT INTO STUDENT_18_AWIN VALUES (2, 'Bob', 18, 9, 41);
+INSERT INTO STUDENT_18_AWIN VALUES (3, 'Bright', 22, 7, 31);
+INSERT INTO STUDENT_18_AWIN VALUES (4, 'Duke', 13, 21, 20);
+INSERT INTO STUDENT_18_AWIN VALUES (5, 'Elvin', 14, 22, 23);
+INSERT INTO STUDENT_18_AWIN VALUES (6, 'Fletcher', 2, 10, 48);
+INSERT INTO STUDENT_18_AWIN VALUES (7, 'Georgina', 22, 12, 22);
+INSERT INTO STUDENT_18_AWIN VALUES (8, 'Mary', 24, 14, 31);
+INSERT INTO STUDENT_18_AWIN VALUES (9, 'Tom', 19, 15, 24);
+INSERT INTO STUDENT_18_AWIN VALUES (10, 'Zack', 8, 20, 36);
+-- Output
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+
+-- Query 3
+SELECT * FROM STUDENT_18_AWIN;
+-- Output
+ROLL_NO NAME                    PHYSICS  CHEMISTRY MATHEMATICS
+---------- -------------------- ---------- ---------- -----------
+         1 Adam                         20         20          33 
+         2 Bob                          18          9          41 
+         3 Bright                       22          7          31 
+         4 Duke                         13         21          20 
+         5 Elvin                        14         22          23 
+         6 Fletcher                      2         10          48 
+         7 Georgina                     22         12          22 
+         8 Mary                         24         14          31 
+         9 Tom                          19         15          24 
+        10 Zack                          8         20          36 
+
+10 rows selected
+
+-- Query 4
+SELECT AVG(Physics) AS class_average_physics
+FROM STUDENT_18_AWIN;
+-- Output
+CLASS_AVERAGE_PHYSICS
+---------------------
+                 16.2
+
+-- Query 5
+SELECT MAX(Mathematics) AS highest_marks_maths
+FROM STUDENT_18_AWIN;
+-- Output
+HIGHEST_MARKS_MATHS
+-------------------
+                 48
+
+-- Query 6
+SELECT MIN(Chemistry) AS lowest_mark_chemistry
+FROM STUDENT_18_AWIN;
+-- Output
+LOWEST_MARK_CHEMISTRY
+---------------------
+                    7
+
+-- Query 7
+SELECT COUNT(*) AS pass_count_physics
+FROM STUDENT_18_AWIN
+WHERE Physics >= 12;
+-- Output
+PASS_COUNT_PHYSICS
+------------------
+                 8
+
+-- Query 8
+SELECT NAME
+FROM STUDENT_18_AWIN
+WHERE Physics >= 12 AND Chemistry >= 12 AND Mathematics >= 25;
+-- Output
+NAME               
+--------------------
+Adam                 
+Mary                 
+
+-- Query 9
+SELECT ROLL_NO, NAME,
+       Physics + Chemistry + Mathematics AS Total_Marks,
+       CASE 
+           WHEN Physics >= 12 AND Chemistry >= 12 AND Mathematics >= 25 THEN 'Pass'
+           ELSE 'Fail'
+       END AS Status
+FROM STUDENT_18_AWIN
+ORDER BY Total_Marks DESC;
+-- Output
+ROLL_NO NAME                 TOTAL_MARKS STATUS
+---------- -------------------- ----------- ------
+         1 Adam                          73 Pass   
+         8 Mary                          69 Pass   
+         2 Bob                           68 Fail   
+        10 Zack                          64 Fail   
+         3 Bright                        60 Fail   
+         6 Fletcher                      60 Fail   
+         5 Elvin                         59 Fail   
+         9 Tom                           58 Fail   
+         7 Georgina                      56 Fail   
+         4 Duke                          54 Fail 
+
+10 rows selected
+
+-- Query 10
+SELECT (COUNT(CASE WHEN Mathematics >= 25 THEN 1 END) * 100.0 / COUNT(*)) AS pass_percentage_maths
+FROM STUDENT_18_AWIN;
+-- Output
+PASS_PERCENTAGE_MATHS
+---------------------
+                   60
+
+-- Query 11
+SELECT (COUNT(CASE WHEN Physics >= 12 AND Chemistry >= 12 AND Mathematics >= 25 THEN 1 END) * 100.0 / COUNT(*)) AS overall_pass_percentage
+FROM STUDENT_18_AWIN;
+-- Output
+OVERALL_PASS_PERCENTAGE
+-----------------------
+                     20
+
+-- Query 12
+SELECT AVG(Physics + Chemistry + Mathematics) AS class_average
+FROM STUDENT_18_AWIN;
+-- Output
+CLASS_AVERAGE
+-------------
+         62.1
+
+-- Query 13
+SELECT COUNT(*) AS total_pass_students
+FROM STUDENT_18_AWIN
+WHERE Physics >= 12 AND Chemistry >= 12 AND Mathematics >= 25;
+-- Output
+TOTAL_PASS_STUDENTS
+-------------------
+                  2

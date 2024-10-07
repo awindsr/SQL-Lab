@@ -1,0 +1,61 @@
+--experiment 11 implement DCL commands
+CREATE TABLE bank (
+    bankID NUMBER(20) PRIMARY KEY,
+    bankname VARCHAR(10),
+    headoffice VARCHAR(10),
+    branch VARCHAR(10),
+    branchcode VARCHAR(20)
+);
+
+INSERT INTO bank  VALUES (001,'Bank A', 'New York', 'Branch 1', 'BA01');
+INSERT INTO bank  VALUES (002 ,'Bank A', 'New York', 'Branch 2', 'BA02');
+INSERT INTO bank  VALUES (003 ,'Bank B', 'Boston', 'Branch 1', 'BB01');
+INSERT INTO bank  VALUES (004 ,'Bank A', 'Ohio', 'Branch 3',  'BA03');
+INSERT INTO bank  VALUES (005 ,'Bank C', 'New York', 'Branch 1',  'BC01');
+
+select * from bank;
+
+    BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         1 Bank A     New York   Branch 1   BA01                 
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+grant select on bank to c22csa32;
+grant succeeded.
+SELECT * FROM c22csa18.bank;
+  BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         1 Bank A     New York   Branch 1   BA01                 
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+
+GRANT UPDATE ON bank TO c22csa32;
+UPDATE c22csa18.bank
+SET bankname = 'Updated Bank A'
+WHERE bankID = 1;
+SELECT * FROM c22csa18.bank;
+
+     BANKID BANKNAME        HEADOFFICE BRANCH     BRANCHCODE         
+---------- ----------       ---------- ---------- --------------------
+         1 Updated Bank A  New York   Branch 1   BA01                 
+         2 Bank A          New York   Branch 2   BA02                 
+         3 Bank B          Boston     Branch 1   BB01                 
+         4 Bank A          Ohio       Branch 3   BA03                 
+         5 Bank C          New York   Branch 1   BC01                 
+
+
+
+revoke select,update on bank from c22csa32;
+revoke succeeded.
+SELECT * FROM c22csa18.bank;
+ORA-00942: table or view does not exist
+00942. 00000 -  "table or view does not exist"
+*Cause:    
+*Action:
+Error at Line: 4 Column: 24

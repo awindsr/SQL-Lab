@@ -1,0 +1,55 @@
+
+SQL> declare
+  2 numone NUMBER := &numone;
+  3 numtwo NUMBER := &numtwo;
+  4 operator VARCHAR2(1) := '&operator';
+  5 result NUMBER;
+  6  BEGIN
+  7 IF operator = '+' THEN
+  8 result := numone + numtwo;
+  9 DBMS_OUTPUT.PUT_LINE('result is ' || result);
+ 10 ELSIF operator = '-' THEN
+ 11 result := numone - numtwo;
+ 12 DBMS_OUTPUT.PUT_LINE('result is ' || result);
+ 13 ELSIF operator = '/' THEN
+ 14 IF numtwo != 0 THEN
+ 15 result := numone / numtwo;
+ 16 DBMS_OUTPUT.PUT_LINE('result is ' || result);
+ 17 ELSE
+ 18 DBMS_OUTPUT.PUT_LINE('Divide by zero error');
+ 19 END IF;
+ 20 ELSIF operator = '*' THEN
+ 21 result := numone * numtwo;
+ 22 DBMS_OUTPUT.PUT_LINE('result is ' || result);
+ 23 ELSE
+ 24 DBMS_OUTPUT.PUT_LINE('Unsupported operation');
+ 25 END IF;
+ 26* END;
+SQL> /
+Enter value for numone: 4
+old   2:     numone NUMBER := &numone;
+new   2:     numone NUMBER := 4;
+Enter value for numtwo: 7
+old   3:     numtwo NUMBER := &numtwo;
+new   3:     numtwo NUMBER := 7;
+Enter value for operator: +
+old   4:     operator VARCHAR2(1) := '&operator';
+new   4:     operator VARCHAR2(1) := '+';
+result is 11
+
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for numone: 5
+old   2:     numone NUMBER := &numone;
+new   2:     numone NUMBER := 5;
+Enter value for numtwo: 0
+old   3:     numtwo NUMBER := &numtwo;
+new   3:     numtwo NUMBER := 0;
+Enter value for operator: /
+old   4:     operator VARCHAR2(1) := '&operator';
+new   4:     operator VARCHAR2(1) := '/';
+Divide by zero error
+
+PL/SQL procedure successfully completed.

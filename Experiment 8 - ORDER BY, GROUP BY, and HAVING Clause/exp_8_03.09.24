@@ -1,0 +1,179 @@
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    Customername Varchar(30),
+    ContactNumber Int,
+    Address VARCHAR(50),
+    City VARCHAR(20),
+    PostalCode VARCHAR(10),
+    Country VARCHAR(20)
+);
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    LastName VARCHAR(20),
+    FirstName VARCHAR(20),
+    Birthdate Date,
+    photo BLOB
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    EmployeeID INT,
+    OrderDate DATE,
+    ShipperID INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+
+-- Insert data into Customer table
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
+VALUES (1, 'Michael', 6789012345, '123 Pine St', 'Springfield', '62701', 'USA');
+
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
+VALUES (2, 'Linda', 7890123456, '456 Cedar St', 'Springfield', '62701', 'USA');
+
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
+VALUES (3, 'James', 8901234567, '789 Maple St', 'Springfield', '62701', 'USA');
+
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
+VALUES (4, 'Liam', 4567890123, '456 Cedar St', 'Springfield', '62701', 'USA');
+
+INSERT INTO Customer (CustomerID, CustomerName, ContactNumber, Address, City, PostalCode, Country) 
+VALUES (5, 'Emma', 5678901234, '707 Birch St', 'Paris', '75001', 'France');
+
+-- Insert data into Employees table
+INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, Photo) 
+VALUES (1, 'Doe', 'John', TO_DATE('1980-01-15', 'YYYY-MM-DD'), NULL);
+
+INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, Photo) 
+VALUES (2, 'Smith', 'Alice', TO_DATE('1975-05-23', 'YYYY-MM-DD'), NULL);
+
+INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, Photo) 
+VALUES (3, 'Johnson', 'Robert', TO_DATE('1990-07-30', 'YYYY-MM-DD'), NULL);
+
+INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, Photo) 
+VALUES (4, 'Brown', 'Emily', TO_DATE('1985-12-10', 'YYYY-MM-DD'), NULL);
+
+INSERT INTO Employees (EmployeeID, LastName, FirstName, BirthDate, Photo) 
+VALUES (5, 'Williams', 'Michael', TO_DATE('1978-03-22', 'YYYY-MM-DD'), NULL);
+
+-- Insert data into Orders table
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, ShipperID) 
+VALUES (1, 1, 2, TO_DATE('2024-08-20', 'YYYY-MM-DD'), 60);
+
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, ShipperID) 
+VALUES (2, 1, 3, TO_DATE('2024-08-21', 'YYYY-MM-DD'), 70);
+
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, ShipperID) 
+VALUES (3, 1, 3, TO_DATE('2024-08-17', 'YYYY-MM-DD'), 30);
+
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, ShipperID) 
+VALUES (4, 4, 4, TO_DATE('2024-08-18', 'YYYY-MM-DD'), 40);
+
+INSERT INTO Orders (OrderID, CustomerID, EmployeeID, OrderDate, ShipperID) 
+VALUES (5, 3, 5, TO_DATE('2024-08-19', 'YYYY-MM-DD'), 50);
+
+-- List all customers in ascending order by their names
+SELECT * 
+FROM Customer 
+ORDER BY CustomerName ASC;
+
+CUSTOMERID CUSTOMERNAME                   CONTACTNUMBER ADDRESS                                            CITY                 POSTALCODE COUNTRY            
+---------- ------------------------------ ------------- -------------------------------------------------- -------------------- ---------- --------------------
+         5 Emma                              5678901234 707 Birch St                                       Paris                75001      France               
+         3 James                             8901234567 789 Maple St                                       Springfield          62701      USA                  
+         4 Liam                              4567890123 456 Cedar St                                       Springfield          62701      USA                  
+         2 Linda                             7890123456 456 Cedar St                                       Springfield          62701      USA                  
+         1 Michael                           6789012345 123 Pine St                                        Springfield          62701      USA                  
+
+-- Retrieve a list of orders with the oldest ones appearing first, sorted by order date in ascending order
+SELECT * 
+FROM Orders 
+ORDER BY OrderDate ASC;
+
+ORDERID CUSTOMERID EMPLOYEEID ORDERDATE  SHIPPERID
+---------- ---------- ---------- --------- ----------
+         3          1          3 17-08-24          30 
+         4          4          4 18-08-24          40 
+         5          3          5 19-08-24          50 
+         1          1          2 20-08-24          60 
+         2          1          3 21-08-24          70 
+
+-- Find the employees who were born after 1980 and list them in descending order of their birthdates
+SELECT * 
+FROM Employees 
+WHERE BirthDate > TO_DATE('1980-01-01', 'YYYY-MM-DD') 
+ORDER BY BirthDate DESC;
+
+ EMPLOYEEID LASTNAME             FIRSTNAME            BIRTHDATE PHOTO                                                                          
+---------- -------------------- -------------------- --------- ----------------
+         3 Johnson              Robert               30-07-90                                                                                   
+         4 Brown                Emily                10-12-85                                                                                   
+         1 Doe                  John                 15-01-80                                                                                                                                                         
+
+-- List orders placed by customers from 'USA' in descending order of the order date
+SELECT o.* 
+FROM Orders o
+JOIN Customer c ON o.CustomerID = c.CustomerID
+WHERE c.Country = 'USA'
+ORDER BY o.OrderDate DESC;
+
+ORDERID CUSTOMERID EMPLOYEEID ORDERDATE  SHIPPERID
+---------- ---------- ---------- --------- ----------
+         2          1          3 21-08-24          70 
+         1          1          2 20-08-24          60 
+         5          3          5 19-08-24          50 
+         4          4          4 18-08-24          40 
+         3          1          3 17-08-24          30 
+
+-- Calculate the total number of orders placed by each customer
+SELECT c.CustomerID, c.CustomerName, COUNT(o.OrderID) AS TotalOrders
+FROM Customer c
+LEFT JOIN Orders o ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+ORDER BY TotalOrders DESC;
+
+CUSTOMERID CUSTOMERNAME                   TOTALORDERS
+---------- ------------------------------ -----------
+         1 Michael                                  3 
+         3 James                                    1 
+         4 Liam                                     1 
+         5 Emma                                     0 
+         2 Linda                                    0 
+
+-- List the cities with the total number of customers
+SELECT City, COUNT(CustomerID) AS TotalCustomers
+FROM Customer
+GROUP BY City
+ORDER BY TotalCustomers DESC;
+
+CITY                 TOTALCUSTOMERS
+-------------------- --------------
+Springfield                       4 
+Paris                             1 
+
+
+-- List customers who have placed more than 2 orders
+SELECT c.CustomerID, c.CustomerName, COUNT(o.OrderID) AS TotalOrders
+FROM Customer c
+JOIN Orders o ON c.CustomerID = o.CustomerID
+GROUP BY c.CustomerID, c.CustomerName
+HAVING COUNT(o.OrderID) > 2
+ORDER BY TotalOrders DESC;
+
+CUSTOMERID CUSTOMERNAME                   TOTALORDERS
+---------- ------------------------------ -----------
+         1 Michael                                  3 
+
+
+-- Display cities with more than 3 customers
+SELECT City, COUNT(CustomerID) AS TotalCustomers
+FROM Customer
+GROUP BY City
+HAVING COUNT(CustomerID) > 3
+ORDER By TotalCustomers Desc;
+
+CITY                 TOTALCUSTOMERS
+-------------------- --------------
+Springfield                       4 

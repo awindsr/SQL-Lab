@@ -1,0 +1,155 @@
+-- Create bank table
+CREATE TABLE Bank (
+    bankcode VARCHAR(3) PRIMARY KEY,
+    bankname VARCHAR(50) NOT NULL,
+    headoffice VARCHAR(30),
+    branches INT CHECK (branches > 0)
+);
+
+-- Create branch table
+CREATE TABLE Branch (
+    branchID VARCHAR(6) PRIMARY KEY,
+    branchName VARCHAR(20) DEFAULT 'New Delhi',
+    bankID VARCHAR(3),
+    FOREIGN KEY (bankID) REFERENCES Bank(bankcode) ON DELETE CASCADE
+);
+
+-- Populate bank table
+INSERT INTO Bank (bankcode, bankname, headoffice, branches) VALUES 
+('SBT', 'State Bank of Travancore', 'Trivandrum', 10);
+INSERT INTO Bank (bankcode, bankname, headoffice, branches) VALUES 
+('HDF', 'HDFC Bank', 'Chennai', 15);
+INSERT INTO Bank (bankcode, bankname, headoffice, branches) VALUES 
+('ICB', 'ICICI Bank', 'Bangalore', 8);
+INSERT INTO Bank (bankcode, bankname, headoffice, branches) VALUES 
+('FBI', 'Federal Bank', 'Ernakulam', 8);
+
+SELECT * FROM Bank;
+
+table BANK created.
+table BRANCH created.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+BANKCODE BANKNAME                                           HEADOFFICE                       BRANCHES
+-------- -------------------------------------------------- ------------------------------ ----------
+SBT      State Bank of Travancore                           Trivandrum                             10 
+HDF      HDFC Bank                                          Chennai                                15 
+ICB      ICICI Bank                                         Bangalore                               8 
+FBI      Federal Bank                                       Ernakulam                               8 
+
+-- Populate branch table
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('SBT001', 'Kochi', 'SBT');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('SBT002', 'Trivandrum', 'SBT');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('HDF003', 'Chennai', 'HDF');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('ICB002', 'Bengaluru', 'ICB');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('SBT003', 'Chennai', 'SBT');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('SBT004', 'Kottayam', 'SBT');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('HDF001', 'Bengaluru', 'HDF');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('FBI001', 'Bengaluru', 'FBI');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('FBI002', 'Ernakulam', 'FBI');
+INSERT INTO Branch (branchID, branchName, bankID) VALUES 
+('FBI003', 'Kottayam', 'FBI');
+
+SELECT * FROM Branch;
+
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+BRANCHID BRANCHNAME           BANKID
+-------- -------------------- ------
+SBT001   Kochi                SBT    
+SBT002   Trivandrum           SBT    
+HDF003   Chennai              HDF    
+ICB002   Bengaluru            ICB    
+SBT003   Chennai              SBT    
+SBT004   Kottayam             SBT    
+HDF001   Bengaluru            HDF    
+FBI001   Bengaluru            FBI    
+FBI002   Ernakulam            FBI    
+FBI003   Kottayam             FBI    
+
+
+-- Delete bank with code SBT 
+DELETE FROM Bank WHERE bankcode='SBT';
+
+SELECT * FROM Bank;
+SELECT * FROM Branch;
+
+1 rows deleted.
+BANKCODE BANKNAME                                           HEADOFFICE                       BRANCHES
+-------- -------------------------------------------------- ------------------------------ ----------
+HDF      HDFC Bank                                          Chennai                                15 
+ICB      ICICI Bank                                         Bangalore                               8 
+FBI      Federal Bank                                       Ernakulam                               8 
+
+
+
+BRANCHID BRANCHNAME           BANKID
+-------- -------------------- ------
+HDF003   Chennai              HDF    
+ICB002   Bengaluru            ICB    
+HDF001   Bengaluru            HDF    
+FBI001   Bengaluru            FBI    
+FBI002   Ernakulam            FBI    
+FBI003   Kottayam             FBI    
+
+ 6 rows selected 
+
+
+-- Drop the primary key in Branch using ALTER command
+ALTER TABLE Branch
+DROP PRIMARY KEY;
+DESCRIBE  branch;
+
+table BRANCH altered.
+DESCRIBE  branch
+Name       Null Type         
+---------- ---- ------------ 
+BRANCHID        VARCHAR2(6)  
+BRANCHNAME      VARCHAR2(20) 
+BANKID          VARCHAR2(3)  
+
+
+
+-- Create a View named branch_headoffice to hold the details of all banks whose head office is in Ernakulam.
+CREATE VIEW bank_headofficee AS 
+SELECT * FROM Bank WHERE headoffice='Ernakulam';
+
+SELECT * FROM bank_headofficee;
+
+view BANK_HEADOFFICEE created.
+BANKCODE BANKNAME                                           HEADOFFICE                       BRANCHES
+-------- -------------------------------------------------- ------------------------------ ----------
+FBI      Federal Bank                                       Ernakulam                               8 
+
+
+
+-- Create a View named bank_branch to hold the details of all branches in Kottayam.
+CREATE VIEW bank_branch AS 
+SELECT * FROM Branch WHERE branchName='Kottayam';
+
+SELECT * FROM bank_branch;
+
+view BANK_BRANCH created.
+BRANCHID BRANCHNAME           BANKID
+-------- -------------------- ------
+FBI003   Kottayam             FBI    
+

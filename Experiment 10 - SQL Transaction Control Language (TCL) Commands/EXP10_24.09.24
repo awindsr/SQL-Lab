@@ -1,0 +1,66 @@
+CREATE TABLE bank (
+    bankID NUMBER(20) PRIMARY KEY,
+    bankname VARCHAR(10),
+    headoffice VARCHAR(10),
+    branch VARCHAR(10),
+    branchcode VARCHAR(20)
+);
+
+INSERT INTO bank  VALUES (001,'Bank A', 'New York', 'Branch 1', 'BA01');
+INSERT INTO bank  VALUES (002 ,'Bank A', 'New York', 'Branch 2', 'BA02');
+INSERT INTO bank  VALUES (003 ,'Bank B', 'Boston', 'Branch 1', 'BB01');
+INSERT INTO bank  VALUES (004 ,'Bank A', 'Ohio', 'Branch 3',  'BA03');
+INSERT INTO bank  VALUES (005 ,'Bank C', 'New York', 'Branch 1',  'BC01');
+
+
+table BANK created.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+1 rows inserted.
+
+
+select * from bank;
+commit;
+
+    BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         1 Bank A     New York   Branch 1   BA01                 
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+committed.
+
+
+savepoint point_A
+
+delete from bank where bankID=001;
+select * from bank;
+
+1 rows deleted.
+    BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+
+rollback to savepoint point_A;
+select * from bank;
+
+
+rollback complete.
+    BANKID BANKNAME   HEADOFFICE BRANCH     BRANCHCODE         
+---------- ---------- ---------- ---------- --------------------
+         1 Bank A     New York   Branch 1   BA01                 
+         2 Bank A     New York   Branch 2   BA02                 
+         3 Bank B     Boston     Branch 1   BB01                 
+         4 Bank A     Ohio       Branch 3   BA03                 
+         5 Bank C     New York   Branch 1   BC01                 
+
+commit;
+committed.
