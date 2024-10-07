@@ -1,0 +1,81 @@
+create table LANGUAGE (
+Language_Id int,
+Name varchar(50),
+PRIMARY KEY(Language_Id)
+);
+
+create table PUBLISHER (
+Publisher_Id int,
+Name varchar(50),
+Address varchar(50),
+PRIMARY KEY(Publisher_Id)
+);
+
+create table BOOK (
+Book_Id int,
+Title varchar(50),
+Language_Id int,
+MRP int,
+Publisher_Id int,
+Published_Date varchar(10),
+Volume int,
+Status varchar(50),
+PRIMARY KEY(Book_Id),
+FOREIGN KEY(Language_Id) REFERENCES LANGUAGE(Language_Id),
+FOREIGN KEY(Publisher_Id) REFERENCES PUBLISHER(Publisher_Id)
+);
+
+create table AUTHOR (
+Author_Id int,
+Name varchar(50),
+Email varchar(50),
+Phone_Number int,
+Status varchar(50),
+PRIMARY KEY(Author_Id)
+);
+
+create table BOOK_AUTHOR (
+Book_Id int,
+Author_Id int,
+FOREIGN KEY(Book_Id) REFERENCES BOOK(Book_Id),
+FOREIGN KEY(Author_Id) REFERENCES AUTHOR(Author_Id)
+);
+
+create table MEMBER (
+Member_Id int,
+Name varchar(50),
+Branch_Code varchar(50),
+Roll_Number int,
+Phone_Number int,
+Email_Id varchar(50),
+Date_of_Join varchar(50),
+Status varchar(50),
+PRIMARY KEY(Member_Id)
+);
+
+create table BOOK_ISSUE (
+Issue_Id int,
+Date_Of_Issue varchar(50),
+Book_Id int,
+Member_Id int,
+Expected_Date_Of_Return varchar(50),
+Status varchar(50),
+PRIMARY KEY(Issue_Id),
+FOREIGN KEY(Book_Id) REFERENCES BOOK(Book_Id),
+FOREIGN KEY(Member_Id) REFERENCES MEMBER(Member_Id)
+);
+
+create table BOOK_RETURN (
+Issue_Id int,
+Actual_Date_Of_Return varchar(50),
+LateDays int,
+LateFee int,
+PRIMARY KEY(Issue_Id),
+FOREIGN KEY(Issue_Id) REFERENCES BOOK_ISSUE(Issue_Id)
+);
+
+create table LATE_FEE_RULE (
+FromDays int,
+ToDays int,
+Amount int
+);
