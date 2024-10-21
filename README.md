@@ -28,6 +28,8 @@ This repository includes a comprehensive set of experiments that cover fundament
 11. **Experiment 11**: SQL Data Control Language (DCL) Commands
 12. **Experiment 12**: Creation of Views and Assertions
 13. **Experiment 13**: PL/SQL Commands
+14. **Experiment 15**: Creation of Packages
+15. **Experiment 16**: Creation of Cursors
 
 Each experiment contains code snippets, explanations, and outcomes that illustrate the principles of database management systems.
 
