@@ -1,0 +1,97 @@
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PACKAGE Pk 1 AS
+  PROCEDURE proc1(numOne NUMBER, numTwo NUMBER);
+  PROCEDURE proc2(numA NUMBER);
+  FUNCTION fn11(numC NUMBER) RETURN VARCHAR2;
+  FUNCTION fn22(numD NUMBER, numE NUMBER, numF NUMBER) RETURN INT;
+END Pk1;
+
+PACKAGE PK compiled
+
+CREATE OR REPLACE PACKAGE BODY Pk1 AS
+  PROCEDURE proc1(numOne NUMBER, numTwo NUMBER) IS
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Sum: ' || (numOne + numTwo));
+    DBMS_OUTPUT.PUT_LINE('Average: ' || ((numOne + numTwo) / 2));
+    DBMS_OUTPUT.PUT_LINE('Product: ' || (numOne * numTwo));
+  END proc1;
+
+  PROCEDURE proc2(numA NUMBER) IS
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('Square Root of ' || numA || ': ' || SQRT(numA));
+  END proc2;
+
+  FUNCTION fn11(numC NUMBER) RETURN VARCHAR2 IS
+  BEGIN
+    IF MOD(numC, 2) = 0 THEN
+      RETURN 'Even';
+    ELSE
+      RETURN 'Odd';
+    END IF;
+  END fn11;
+
+  FUNCTION fn22(numD NUMBER, numE NUMBER, numF NUMBER) RETURN INT IS
+  BEGIN
+    RETURN numD + numE + numF;
+  END fn22;
+END Pk1;
+/
+
+
+PACKAGE BODY PK1 compiled
+
+
+DECLARE
+  numOne NUMBER := &numOne;
+  numTwo NUMBER := &numTwo;
+  numA NUMBER := &numA;  
+  numC NUMBER := &numC; 
+  numD NUMBER := &numD; 
+  numE NUMBER := &numE;  
+  numF NUMBER := &numF; 
+BEGIN
+  Pk1.proc1(numOne, numTwo);
+  Pk1.proc2(numA);
+  DBMS_OUTPUT.PUT_LINE('Number ' || numC || ' is ' || Pk1.fn11(numC));
+  DBMS_OUTPUT.PUT_LINE('Sum of numbers: ' || Pk1.fn22(numD, numE, numF));
+END;
+/
+
+old:DECLARE
+  numOne NUMBER := &numOne;
+  numTwo NUMBER := &numTwo;
+  numA NUMBER := &numA;  
+  numC NUMBER := &numC; 
+  numD NUMBER := &numD; 
+  numE NUMBER := &numE;  
+  numF NUMBER := &numF; 
+BEGIN
+  Pk1.proc1(numOne, numTwo);
+  Pk1.proc2(numA);
+  DBMS_OUTPUT.PUT_LINE('Number ' || numC || ' is ' || Pk1.fn11(numC));
+  DBMS_OUTPUT.PUT_LINE('Sum of numbers: ' || Pk1.fn22(numD, numE, numF));
+END;
+new:DECLARE
+  numOne NUMBER := 5;
+  numTwo NUMBER := 8;
+  numA NUMBER := 9;  
+  numC NUMBER := 6; 
+  numD NUMBER := 4; 
+  numE NUMBER := 2;  
+  numF NUMBER := 6; 
+BEGIN
+  Pk1.proc1(numOne, numTwo);
+  Pk1.proc2(numA);
+  DBMS_OUTPUT.PUT_LINE('Number ' || numC || ' is ' || Pk1.fn11(numC));
+  DBMS_OUTPUT.PUT_LINE('Sum of numbers: ' || Pk1.fn22(numD, numE, numF));
+END;
+
+anonymous block completed
+Sum: 13
+Average: 6.5
+Product: 40
+Square Root of 9: 3
+Number 6 is Even
+Sum of numbers: 12
+
