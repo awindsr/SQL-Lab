@@ -1,0 +1,48 @@
+
+CREATE TABLE dept (
+  dept_id INT PRIMARY KEY,
+  dname VARCHAR(20)
+);
+
+
+CREATE TABLE STUD (
+  ROLLNO INT PRIMARY KEY,
+  NAME VARCHAR(20),
+  DEPT_ID INT,
+  FOREIGN KEY (DEPT_ID) REFERENCES DEPT(DEPT_ID)
+);
+
+
+INSERT INTO dept VALUES (1, 'Science');
+INSERT INTO dept VALUES (2, 'CSE');
+
+
+INSERT INTO stud VALUES (102, 'Oliver White', 1);
+INSERT INTO stud VALUES (103, 'Awin', 2);
+INSERT INTO stud VALUES (104, 'John', 1);
+
+
+SELECT * FROM stud;
+SELECT * FROM dept;
+
+CREATE VIEW Science_student_view AS
+SELECT s.rollNo, s.name, d.dname 
+FROM stud s 
+JOIN dept d ON s.dept_id = d.dept_id
+WHERE d.dname = 'Science';
+
+SELECT * FROM Science_student_view;
+
+INSERT INTO stud (rollNo, name, dept_id) VALUES (105, 'Alice Green', 1);
+SELECT * FROM Science_student_view;
+
+delete from stud where name='Oliver White';
+SELECT * FROM Science_student_view;
+
+DELETE FROM stud WHERE rollNo = 102; 
+SELECT * FROM Science_student_view;
+
+
+
+
+
