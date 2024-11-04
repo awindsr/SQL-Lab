@@ -1,0 +1,64 @@
+set SERVEROUTPUT on;
+CREATE OR REPLACE PACKAGE pk1 AS
+  PROCEDURE proc1(n IN NUMBER, result OUT NUMBER);
+  FUNCTION posneg(num IN NUMBER) RETURN VARCHAR2;
+  FUNCTION fnavg(a IN NUMBER, b IN NUMBER, c IN NUMBER) RETURN NUMBER;
+END pk1;
+/
+
+CREATE OR REPLACE PACKAGE BODY pk1 AS
+
+  PROCEDURE proc1(n IN NUMBER, result OUT NUMBER) IS
+    fact NUMBER := 1;
+  BEGIN
+    IF n < 0 THEN
+      result := NULL; 
+    ELSE
+      FOR i IN 1..n LOOP
+        fact := fact * i;
+      END LOOP;
+      result := fact;
+    END IF;
+  END proc1;
+
+  FUNCTION posneg(num IN NUMBER) RETURN VARCHAR2 IS
+  BEGIN
+    IF num > 0 THEN
+      RETURN 'Positive';
+    ELSIF num < 0 THEN
+      RETURN 'Negative';
+    ELSE
+      RETURN 'Zero';
+    END IF;
+  END posneg;
+
+  FUNCTION fnavg(a IN NUMBER, b IN NUMBER, c IN NUMBER) RETURN NUMBER IS
+  BEGIN
+    RETURN (a + b + c) / 3;
+  END fnavg;
+
+END pk1;
+/ 
+
+DECLARE
+  fact_result NUMBER;
+  num_check NUMBER;
+  avg_result NUMBER;
+BEGIN
+  num_check := &num_check; 
+  DECLARE
+    fact_input NUMBER := &fact_input; 
+    avg_a NUMBER := &avg_a; 
+    avg_b NUMBER := &avg_b;
+    avg_c NUMBER := &avg_c; 
+  BEGIN
+    pk1.proc1(fact_input, fact_result);
+    DBMS_OUTPUT.PUT_LINE('Factorial: ' || fact_result);
+  
+    DBMS_OUTPUT.PUT_LINE('Number is: ' || pk1.posneg(num_check));
+  
+    avg_result := pk1.fnavg(avg_a, avg_b, avg_c);
+    DBMS_OUTPUT.PUT_LINE('Average: ' || avg_result);
+  END;
+END;
+/
